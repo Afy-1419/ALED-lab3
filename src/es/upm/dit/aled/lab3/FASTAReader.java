@@ -18,7 +18,7 @@ import java.util.List;
  * @author mmiguel, rgarciacarmona
  *
  */
-public class FASTAReader {
+public class FASTAReader { //METODO
 
 	protected byte[] content;
 	protected int validBytes;
