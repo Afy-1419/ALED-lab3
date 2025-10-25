@@ -5,6 +5,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -100,7 +101,7 @@ public class FASTAReader { //METODO
 	 * 
 	 * @param initialPos The first character of the sequence.
 	 * @param size       The length of the sequence.
-	 * @return An String representing the sequence.
+	 * @return An String representing the sequence. 	
 	 */
 	public String getSequence(int initialPos, int size) {
 		if (initialPos + size >= validBytes)
@@ -117,6 +118,8 @@ public class FASTAReader { //METODO
 	 * Returns true if the pattern is present at the given position; false
 	 * otherwise.
 	 */
+	
+	//METODO COMPARE 
 	private boolean compare(byte[] pattern, int position) throws FASTAException {
 		if (position + pattern.length > validBytes) {
 			throw new FASTAException("Pattern goes beyond the end of the file.");
@@ -135,9 +138,22 @@ public class FASTAReader { //METODO
 	 * pattern when one has been found to be different.
 	 */
 	private boolean compareImproved(byte[] pattern, int position) throws FASTAException {
-		// TODO
-		return false;
+		//la excepcion sigue siendo la misma 
+		if (position + pattern.length > validBytes) {
+			throw new FASTAException("Pattern goes beyond the end of the file.");
+		}
+		
+		
+		boolean match = true;
+		for (int i = 0; i < pattern.length; i++) {
+			if (pattern[i] != content[position + i]) {
+				match = false;
+				break; //para que en cuanto sea false match salga del bucle y retrunee false
+			}
+		}
+		return match;
 	}
+	
 
 	/*
 	 * Improved version of the compare method that returns the number of bytes in
@@ -148,8 +164,20 @@ public class FASTAReader { //METODO
 	 * ones present in the indicated position.
 	 */
 	private int compareNumErrors(byte[] pattern, int position) throws FASTAException {
-		// TODO
-		return -1;
+		int contadorerrores=0;
+		//la excepcion sigue siendo la misma 
+		if (position + pattern.length > validBytes) {
+			throw new FASTAException("Pattern goes beyond the end of the file.");
+		}
+		
+		for (int i = 0; i < pattern.length; i++) {
+			if (pattern[i] != content[position + i]) {
+				contadorerrores++;
+					}
+				}
+			
+		return contadorerrores;
+	
 	}
 
 	/**
@@ -162,8 +190,21 @@ public class FASTAReader { //METODO
 	 *         pattern in the data.
 	 */
 	public List<Integer> search(byte[] pattern) {
-		// TODO
-		return null;
+			//para empezar tendré que crearme una lista de posiciones donde se encuentre la secuencia a buscar en el ADN 
+		List<Integer> listaposicionescoincidentes=new ArrayList<>();
+		
+		// recorro content 
+		for (int c=0; c<=content.length - pattern.length;c++) {
+			try {
+				if(compareImproved(pattern, c)) {
+					listaposicionescoincidentes.add(c);
+				}
+			} catch (FASTAException e) {
+				e.printStackTrace();
+			}
+		}
+								
+		return listaposicionescoincidentes;
 	}
 
 	/**
@@ -179,9 +220,23 @@ public class FASTAReader { //METODO
 	 *         pattern (with up to 1 errors) in the data.
 	 */
 	public List<Integer> searchSNV(byte[] pattern) {
-		// TODO
-		return null;
-	}
+			//para empezar tendré que crearme una lista de posiciones donde se encuentre la secuencia a buscar en el ADN 
+		List<Integer> listaposicionescoincidentes=new ArrayList<>();
+		
+		// recorro content 
+		for (int c=0; c<=content.length - pattern.length;c++) {
+			try {
+				int numerrores= compareNumErrors(pattern, c);
+				if(numerrores==0||numerrores==1) {
+					listaposicionescoincidentes.add(c);
+				}
+			} catch (FASTAException e) {
+				e.printStackTrace();
+			}
+		}
+								
+		return listaposicionescoincidentes;
+	}	
 
 	public static void main(String[] args) {
 		long t1 = System.nanoTime();

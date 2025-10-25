@@ -8,7 +8,7 @@ package es.upm.dit.aled.lab3.binary;
  * @author mmiguel, rgarciacarmona
  */
 public class Suffix {
-	public final int suffixIndex;
+	public final int suffixIndex; //2. este es el indice que va asociado al sufijo. 
 
 	/**
 	 * Creates a new Suffix.

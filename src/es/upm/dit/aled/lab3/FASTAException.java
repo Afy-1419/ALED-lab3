@@ -11,4 +11,5 @@ public class FASTAException extends Exception{
 	public FASTAException(String msg) {
 		super(msg);
 	}
+	
 }

@@ -1,4 +1,4 @@
-package es.upm.dit.aled.lab3.binary;
+	package es.upm.dit.aled.lab3.binary;
 
 import java.util.Arrays;
 import java.util.List;
@@ -35,9 +35,9 @@ public class FASTAReaderSuffixes extends FASTAReader {
 		super(fileName);
 		this.suffixes = new Suffix[validBytes];
 		for (int i = 0; i < validBytes; i++)
-			suffixes[i] = new Suffix(i);
+			suffixes[i] = new Suffix(i); //1. creo un Suffix con indice 3 por ejemplo. 
 		// Sorts the data
-		sort();
+		sort();	// por ultimo se va a ordenar para obtener suffixes ordenado por orden alfabético. 
 	}
 
 	/*
@@ -78,8 +78,15 @@ public class FASTAReaderSuffixes extends FASTAReader {
 	 */
 	@Override
 	public List<Integer> search(byte[] pattern) {
-		// TODO
-		return null;
+	int lo= 0;
+	int hi=suffixes.length;
+	int me = hi-lo/2;
+	boolean found=false;
+	int indice=0;
+	
+	
+	
+	
 	}
 
 	public static void main(String[] args) {

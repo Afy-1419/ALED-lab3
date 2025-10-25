@@ -39,7 +39,7 @@ public class SuffixComparator implements Comparator<Suffix> {
 
 		int len = Math.min(this.reader.getValidBytes() - index1, this.reader.getValidBytes() - index2);
 
-		for (int i = 0; i < len; i++) {
+		for (int i = 0; i < len; i++) { //3. es lo que voy a estar comparando desde el content. 
 			if (this.reader.getContent()[index1 + i] < this.reader.getContent()[index2 + i])
 				return -1;
 			if (this.reader.getContent()[index1 + i] > this.reader.getContent()[index2 + i])
