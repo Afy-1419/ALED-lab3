@@ -226,7 +226,7 @@ public class FASTAReader { //METODO
 		// recorro content 
 		for (int c=0; c<=content.length - pattern.length;c++) {
 			try {
-				int numerrores= compareNumErrors(pattern, c);
+				int numerrores = compareNumErrors(pattern, c);
 				if(numerrores==0||numerrores==1) {
 					listaposicionescoincidentes.add(c);
 				}
